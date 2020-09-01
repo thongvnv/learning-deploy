@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+
 class UserController extends Controller
 {
     public function index()
     {
-        return 'Hà lố, ma zờ pha cờ!';
+        $users = User::get();
+        return view('users.index', compact('users'));
     }
 }

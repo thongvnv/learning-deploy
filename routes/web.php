@@ -15,4 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('user', 'UserController@index');
+Route::namespace('Auth')->group(function () {
+    Route::get('login', 'LoginController@showLoginForm')->name('login');
+    Route::post('login', 'LoginController@login');
+    Route::get('logout', 'LoginController@logout');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('', 'UserController@index')->name('index');
+    });
+});
